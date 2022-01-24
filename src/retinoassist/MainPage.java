@@ -4,6 +4,9 @@
  */
 package retinoassist;
 
+import static java.lang.System.exit;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author nikhil
@@ -15,6 +18,7 @@ public class MainPage extends javax.swing.JFrame {
      */
     public MainPage() {
         initComponents();
+        
     }
 
     /**
@@ -77,11 +81,21 @@ public class MainPage extends javax.swing.JFrame {
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/PerformExamination.png"))); // NOI18N
         jButton2.setText("Perform Examination");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton2);
         jButton2.setBounds(20, 280, 240, 60);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/ViewReports.png"))); // NOI18N
         jButton3.setText("    View Reports");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton3);
         jButton3.setBounds(20, 380, 240, 60);
 
@@ -133,11 +147,15 @@ public class MainPage extends javax.swing.JFrame {
         jLabel4.setBounds(1000, 0, 40, 60);
 
         jButton8.setText("LogOut");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton8);
         jButton8.setBounds(1180, 10, 110, 36);
 
         jLabel5.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jLabel5.setForeground(java.awt.Color.black);
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Welcome Doctor !");
         jPanel1.add(jLabel5);
@@ -305,13 +323,84 @@ public class MainPage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+//    public void setUserName(String a){
+//    jLabel8.setText(a);
+//}
+    
+    public void setNamee(String a){
+    jLabel8.setText(a);
+}
+
+    public void setId(String a){
+    jLabel12.setText(a);
+}
+
+    public void setDegree(String a){
+    jLabel13.setText(a);
+}
+
+    public void setSpcl(String a){
+    jLabel14.setText(a);
+}
+
+    public void setWrd_no(String a){
+    jLabel15.setText(a);
+}
+
+    public void setShift(String a){
+    jLabel19.setText(a);
+}
+
+    public void setDept(String a){
+    jLabel21.setText(a);
+}
+
+    public void setMob(String a){
+    jLabel23.setText(a);
+}
+
+    public void setAddr(String a){
+    jLabel25.setText(a);
+}
+
+    public void setDOB(String a){
+    jLabel26.setText(a);
+}
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        View_patient vp = new View_patient();
+        vp.setVisible(true);
+        
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        AddPatient vp = new AddPatient();
+        vp.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+         int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Do you want to Log Out", "LOG OUT", dialogButton);
+        if(dialogResult == 0) {
+          exit(0);
+        } else {
+          System.out.println("No Option");
+        } 
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        PerformExamination vp = new PerformExamination();
+        vp.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        View_reports vp = new View_reports();
+        vp.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

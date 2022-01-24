@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package retinoassist;
+import java.sql.*;
 
 /**
  *
@@ -30,29 +31,26 @@ public class UserLogin extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        username = new javax.swing.JTextField();
-        password = new javax.swing.JPasswordField();
+        usernameLabel = new javax.swing.JTextField();
+        passwordLabel = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        loginMsgFeild = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1300, 800));
 
         jPanel1.setLayout(null);
 
-        username.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jPanel1.add(username);
-        username.setBounds(590, 380, 280, 50);
+        usernameLabel.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jPanel1.add(usernameLabel);
+        usernameLabel.setBounds(590, 380, 280, 50);
 
-        password.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        password.addActionListener(new java.awt.event.ActionListener() {
+        passwordLabel.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        passwordLabel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordActionPerformed(evt);
+                passwordLabelActionPerformed(evt);
             }
         });
-        jPanel1.add(password);
-        password.setBounds(590, 440, 280, 50);
+        jPanel1.add(passwordLabel);
+        passwordLabel.setBounds(590, 440, 280, 50);
 
         jButton1.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jButton1.setText("Login");
@@ -64,11 +62,12 @@ public class UserLogin extends javax.swing.JFrame {
         jPanel1.add(jButton1);
         jButton1.setBounds(420, 530, 460, 60);
 
-        jLabel2.setBackground(java.awt.Color.blue);
-        jLabel2.setForeground(java.awt.Color.white);
-        jLabel2.setText("Not Registered User? Register Here");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(430, 620, 260, 18);
+        loginMsgFeild.setBackground(java.awt.Color.blue);
+        loginMsgFeild.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        loginMsgFeild.setForeground(java.awt.Color.white);
+        loginMsgFeild.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(loginMsgFeild);
+        loginMsgFeild.setBounds(430, 620, 450, 40);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/LoginBackground.png"))); // NOI18N
         jPanel1.add(jLabel1);
@@ -88,14 +87,55 @@ public class UserLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
+    private void passwordLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordLabelActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_passwordActionPerformed
+    }//GEN-LAST:event_passwordLabelActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        MainPage event = new MainPage();
-        this.dispose();
-        event.setVisible(true);  
+        String username = usernameLabel.getText();
+        String password = new String(passwordLabel.getText());
+         
+        try{  
+        Class.forName("com.mysql.cj.jdbc.Driver");  
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/retinet","nikhil","Nikhil@2001");   
+        Statement stmt = con.createStatement();  
+        ResultSet rs = stmt.executeQuery("select * from user_info where username ='"+username+"';");  
+        while(rs.next()){
+            String password1 = rs.getString("password");
+            
+            if(password.equals(password1)){
+                String username1 =rs.getString("username");
+                String name =rs.getString("name");
+                String id = rs.getString("id");
+                String degree = rs.getString("degree");
+                String spcl = rs.getString("spcl");
+                String wrd_no = rs.getString("wrd_no");
+                String shift = rs.getString("shift");
+                String dept = rs.getString("dept");
+                String mob = rs.getString("mob");
+                String addr = rs.getString("addr");
+                String dob = rs.getString("dob");
+                MainPage event = new MainPage();
+                this.dispose();
+                event.setVisible(true);
+                event.setNamee(name);
+                event.setId(id);
+                event.setDegree(degree);
+                event.setSpcl(spcl);
+                event.setWrd_no(wrd_no);
+                event.setShift(shift);
+                event.setDept(dept);
+                event.setMob(mob);
+                event.setAddr(addr);
+                event.setDOB(dob);
+            }
+        }  
+          
+        con.close();  
+        }catch(Exception e){
+            //System.out.println(e.getStackTrace());
+            System.out.println(e);
+        }  
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -137,9 +177,9 @@ public class UserLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField password;
-    private javax.swing.JTextField username;
+    private javax.swing.JLabel loginMsgFeild;
+    private javax.swing.JPasswordField passwordLabel;
+    private javax.swing.JTextField usernameLabel;
     // End of variables declaration//GEN-END:variables
 }
